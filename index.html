@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Captura de Foto</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Captura de Imagen</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <div class="camera-container">
     <video id="video" autoplay playsinline></video>
+    <button id="capture-btn"></button>
     <canvas id="canvas" style="display: none;"></canvas>
     <img id="preview" style="display: none;" />
-    
-    <div class="controls">
-      <button id="capture-btn" class="capture-btn"></button>
-      <button id="send-btn" class="send-btn" style="display: none;">Enviar</button>
-    </div>
+    <button id="send-btn" style="display: none;">Enviar</button>
   </div>
-
-  <script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
