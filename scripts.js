@@ -19,18 +19,22 @@ navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
   .catch(err => alert("Error al acceder a la cámara: " + err.message));
 
 captureBtn.addEventListener("click", () => {
-  // Captura frame
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext("2d").drawImage(video, 0, 0);
+  if (video.readyState === video.HAVE_ENOUGH_DATA) {
+    // Captura el frame solo si el video está listo
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-  const imgData = canvas.toDataURL("image/png");
-
-  // Muestra imagen y botón de enviar
-  preview.src = imgData;
-  preview.style.display = "block";
-  sendBtn.style.display = "inline-block";
-  captureBtn.style.display = "none"; // opcional: ocultar botón capturar
+    // Muestra la imagen capturada
+    const imgData = canvas.toDataURL("image/png");
+    preview.src = imgData;
+    preview.style.display = "block";
+    sendBtn.style.display = "inline-block";
+    captureBtn.style.display = "none";
+  } else {
+    alert("La cámara aún no está lista. Espera un momento.");
+  }
 });
 
 sendBtn.addEventListener("click", () => {
@@ -49,7 +53,7 @@ sendBtn.addEventListener("click", () => {
     .then(data => {
       alert("Imagen enviada correctamente.");
 
-      // Reinicia la vista
+      // Restaurar interfaz
       preview.style.display = "none";
       sendBtn.style.display = "none";
       captureBtn.style.display = "inline-block";
