@@ -1,55 +1,46 @@
-* {
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  height: 100%;
-  background: #000;
+  background-color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .camera-container {
   position: relative;
   width: 100%;
   max-width: 480px;
-  height: 640px;
-  overflow: hidden;
 }
 
-video, #preview {
+video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  border-radius: 10px;
 }
 
-.controls {
+#capture-btn {
   position: absolute;
   bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.capture-btn {
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
   width: 60px;
   height: 60px;
-  border: 4px solid white;
   border-radius: 50%;
-  background-color: transparent;
+  border: none;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
-.send-btn {
-  background-color: #28a745;
+#send-btn {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: limegreen;
   color: white;
-  padding: 10px 16px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
   cursor: pointer;
 }
