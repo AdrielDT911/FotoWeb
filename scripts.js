@@ -1,87 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.getElementById("video");
-  const canvas = document.getElementById("canvas");
-  const preview = document.getElementById("preview");
   const captureBtn = document.getElementById("capture-btn");
   const sendBtn = document.getElementById("send-btn");
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
 
-  const receivedImgContainer = document.getElementById("received-img-container");
-  const receivedImg = document.getElementById("received-img");
-
-  const params = new URLSearchParams(window.location.search);
-  const qrId = params.get('qr_id');
-  const sessionId = params.get('session_id');
-
-  if (!qrId || !sessionId) {
-    alert("QR_ID o SESSION_ID no encontrados.");
-    return;
-  }
-
-  // Inicialización de la cámara
+  // Inicializa la cámara
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
       video.srcObject = stream;
     })
     .catch(err => {
-      alert("Error accediendo a la cámara: " + err.message);
+      console.error("Error al acceder a la cámara", err);
     });
 
-  // Al hacer clic en el botón de captura
+  // Captura la foto
   captureBtn.addEventListener("click", () => {
-    const context = canvas.getContext("2d");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    const imageData = canvas.toDataURL("image/png");
-    preview.src = imageData;
-    preview.style.display = "block";
-    video.style.display = "none";
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     captureBtn.style.display = "none";
     sendBtn.style.display = "inline-block";
   });
 
-  // Enviar la imagen
+  // Enviar foto
   sendBtn.addEventListener("click", () => {
-    const imageData = preview.src;
+    const imageData = canvas.toDataURL("image/png");
 
-    fetch("https://foto-api.up.railway.app/qr/guardar-foto", {
+    // Aquí debes obtener los valores de qr_id y session_id (pasados en la URL)
+    const urlParams = new URLSearchParams(window.location.search);
+    const qrId = urlParams.get("qr_id");
+    const sessionId = urlParams.get("session_id");
+
+    if (!qrId || !sessionId) {
+      alert("No se encontró un ID válido.");
+      return;
+    }
+
+    fetch("https://qr-api-production-adac.up.railway.app/qr/guardar-foto", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        image_data: imageData,
         qr_id: parseInt(qrId),
-        session_id: sessionId,
-        imagen: imageData
+        session_id: sessionId
       })
     })
     .then(res => res.json())
     .then(data => {
-      alert("Imagen enviada correctamente.");
-      startPolling();  // Iniciar el polling para verificar la imagen
+      alert("Foto enviada correctamente.");
     })
     .catch(err => {
-      alert("Error al enviar la imagen: " + err.message);
+      alert("Error al enviar la foto: " + err.message);
     });
   });
-
-  // Polling para verificar si la imagen fue recibida
-  function startPolling() {
-    const interval = setInterval(() => {
-      fetch(`https://foto-api.up.railway.app/qr/verificar-foto?qr_id=${qrId}&session_id=${sessionId}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.imagen) {
-            clearInterval(interval);
-            // Mostrar la imagen recibida en la página
-            receivedImg.src = data.imagen;
-            receivedImgContainer.style.display = "block";
-          } else {
-            console.log("Esperando imagen...");
-          }
-        })
-        .catch(err => {
-          console.error("Error en el polling:", err);
-        });
-    }, 3000);
-  }
 });
