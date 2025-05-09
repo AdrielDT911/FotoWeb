@@ -21,22 +21,30 @@ body {
   padding: 10px;
 }
 
-video {
+video, #preview {
   width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
 }
 
 #preview {
   display: none;
-  width: 100%;
-  border-radius: 12px;
-  margin-top: 10px;
+}
+
+canvas {
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
 }
 
 button {
-  margin-top: 15px;
-  padding: 12px 20px;
+  flex: 1;
+  padding: 12px 10px;
   font-size: 16px;
   background-color: #1e90ff;
   border: none;
@@ -50,10 +58,6 @@ button:hover {
   background-color: #006fdc;
 }
 
-#send-btn {
-  display: none;
-}
-
-canvas {
+#send-btn, #cancel-btn {
   display: none;
 }
