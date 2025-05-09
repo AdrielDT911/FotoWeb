@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Captura y envía imágenes de facturas.">
-  <meta name="author" content="Tu Nombre o Empresa">
-  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Captura de Imagen</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="camera-container">
-    <video id="camera" width="640" height="480" autoplay></video>
-    <button id="capture">Capturar Imagen</button>
-    <canvas id="canvas" style="display: none;"></canvas>
-    <div id="imagePreview"></div>
+  <div class="container">
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <div class="buttons">
+      <button id="capture-btn">📸 Capturar</button>
+      <button id="send-btn" style="display:none;">📤 Enviar Imagen</button>
+    </div>
+
+    <img id="preview" style="display:none;" />
   </div>
 
   <script src="scripts.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
 </body>
 </html>
