@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function sendImageToAPI(imageData) {
-    fetch("https://qr-api-production-adac.up.railway.app/qr/guardar-imagen", {
+    fetch("https://foto-api-production.up.railway.app/qr/guardar-imagen", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
