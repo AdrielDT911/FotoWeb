@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const preview = document.getElementById("preview");
   const captureBtn = document.getElementById("capture-btn");
   const sendBtn = document.getElementById("send-btn");
-  const imageContainer = document.getElementById("image-container"); // Contenedor donde mostraremos la imagen
+
+  const receivedImgContainer = document.getElementById("received-img-container");
+  const receivedImg = document.getElementById("received-img");
 
   const params = new URLSearchParams(window.location.search);
   const qrId = params.get('qr_id');
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Inicialización de la cámara
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
       video.srcObject = stream;
@@ -23,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Error accediendo a la cámara: " + err.message);
     });
 
+  // Al hacer clic en el botón de captura
   captureBtn.addEventListener("click", () => {
     const context = canvas.getContext("2d");
     canvas.width = video.videoWidth;
@@ -37,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sendBtn.style.display = "inline-block";
   });
 
+  // Enviar la imagen
   sendBtn.addEventListener("click", () => {
     const imageData = preview.src;
 
@@ -52,38 +57,31 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(data => {
       alert("Imagen enviada correctamente.");
-      iniciarPolling();
+      startPolling();  // Iniciar el polling para verificar la imagen
     })
     .catch(err => {
       alert("Error al enviar la imagen: " + err.message);
     });
   });
 
-  // Función de polling para verificar la imagen
-  function iniciarPolling() {
-    const pollingInterval = setInterval(() => {
+  // Polling para verificar si la imagen fue recibida
+  function startPolling() {
+    const interval = setInterval(() => {
       fetch(`https://foto-api.up.railway.app/qr/verificar-foto?qr_id=${qrId}&session_id=${sessionId}`)
         .then(res => res.json())
         .then(data => {
           if (data.imagen) {
-            clearInterval(pollingInterval);
-            mostrarImagen(data.imagen);  // Llamar a la función para mostrar la imagen
-            alert("Imagen capturada y enviada correctamente.");
+            clearInterval(interval);
+            // Mostrar la imagen recibida en la página
+            receivedImg.src = data.imagen;
+            receivedImgContainer.style.display = "block";
           } else {
             console.log("Esperando imagen...");
           }
         })
-        .catch(err => console.error("Error en polling:", err));
-    }, 3000);  // Polling cada 3 segundos
-  }
-
-  // Mostrar imagen en el contenedor
-  function mostrarImagen(imagenBase64) {
-    const imgElement = document.createElement("img");
-    imgElement.src = imagenBase64;
-    imgElement.style.width = "100%";
-    imgElement.style.borderRadius = "8px";
-    imageContainer.innerHTML = "";  // Limpiar cualquier imagen previa
-    imageContainer.appendChild(imgElement);
+        .catch(err => {
+          console.error("Error en el polling:", err);
+        });
+    }, 3000);
   }
 });
