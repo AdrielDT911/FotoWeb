@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    fetch("https://qr-api-production-adac.up.railway.app/qr/guardar-foto", {
+    fetch("https://foto-api-production.up.railway.app/qr/guardar-foto", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
