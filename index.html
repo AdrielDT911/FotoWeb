@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Captura de Foto</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Captura de foto para enviar.">
+  <meta name="author" content="Tu Nombre o Empresa">
+  <meta name="robots" content="index, follow">
+  <title>Captura Foto</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="camera-container">
-    <video id="video" autoplay playsinline></video>
+    <video id="video" autoplay></video>
     <canvas id="canvas" style="display: none;"></canvas>
-    <img id="preview" style="display: none;" />
-    
-    <div class="controls">
-      <button id="capture-btn" class="capture-btn"></button>
-      <button id="send-btn" class="send-btn" style="display: none;">Enviar</button>
-    </div>
+    <button id="capture-btn" class="capture-btn"></button>
+    <button id="send-btn" class="send-btn" style="display: none;">Enviar Foto</button>
   </div>
 
-  <!-- Section to display the received image -->
-  <div id="received-img-container" style="display:none; text-align:center;">
-    <h3>Imagen enviada:</h3>
-    <img id="received-img" style="max-width:100%; border-radius: 8px;">
-  </div>
-
-  <script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
