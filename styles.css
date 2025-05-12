@@ -4,53 +4,82 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #111;
-  color: #fff;
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
   font-family: 'Segoe UI', sans-serif;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #fff;
 }
 
-.camera-app {
+.camera-wrapper {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  height: 600px;
-  border-radius: 20px;
+  height: 100vh;
   overflow: hidden;
-  background: #000;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
-video {
+video#camera {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-button#capture {
+canvas#canvas {
+  display: none;
+}
+
+.controls {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  color: #000;
-  font-size: 18px;
+  bottom: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 2;
+}
+
+.circle-btn {
+  width: 70px;
+  height: 70px;
+  background: white;
   border: none;
-  border-radius: 50px;
-  padding: 12px 24px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  transition: transform 0.2s;
+}
+
+.circle-btn:active {
+  transform: scale(0.95);
+}
+
+.send-btn {
+  background: #00c853;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,255,0,0.4);
+}
+
+.send-btn.hidden {
+  display: none;
 }
 
 #status {
   position: absolute;
-  bottom: 60px;
+  bottom: 100px;
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
+  z-index: 2;
   color: lime;
 }
