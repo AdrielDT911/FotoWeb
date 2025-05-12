@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("session_id", sessionId);
       formData.append("image", blob, "captura.png");
 
-      fetch("https://qr-api-production-adac.up.railway.app/qr/guardar-imagen", {
+      fetch("https://foto-api-production.up.railway.app/qr/guardar-imagen", {
         method: "POST",
         body: formData
       })
