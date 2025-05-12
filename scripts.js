@@ -3,22 +3,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const qrId = params.get('qr_id');
   const sessionId = params.get('session_id');
   const estado = document.getElementById("estado");
-  const camInput = document.getElementById("camAuto");
 
   if (!qrId || !sessionId) {
     alert("URL inválida: faltan parámetros.");
     return;
   }
 
-  // Lanzar automáticamente la cámara trasera
-  setTimeout(() => {
-    camInput.click();
-  }, 500); // pequeño delay para asegurar carga
+  const inputCamara = document.getElementById("inputCamara");
+  const abrirCamara = document.getElementById("abrirCamara");
 
-  camInput.addEventListener("change", () => {
-    if (camInput.files.length > 0) {
-      estado.textContent = "Enviando foto...";
-      const archivo = camInput.files[0];
+  abrirCamara.addEventListener("click", () => {
+    inputCamara.click(); // 🟢 Lanza la cámara trasera
+  });
+
+  inputCamara.addEventListener("change", () => {
+    if (inputCamara.files.length > 0) {
+      const archivo = inputCamara.files[0];
+      estado.textContent = "📤 Enviando foto...";
 
       const formData = new FormData();
       formData.append("imagen", archivo);
