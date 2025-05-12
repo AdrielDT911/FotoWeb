@@ -36,13 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
           .then(res => res.json())
           .then(data => {
             statusText.textContent = "✅ Foto enviada correctamente.";
-            statusText.style.visibility = "visible";
             stream.getTracks().forEach(track => track.stop());
             captureBtn.disabled = true;
           })
           .catch(err => {
             statusText.textContent = "❌ Error al enviar la foto.";
-            statusText.style.visibility = "visible";
             console.error(err);
           });
         }, "image/jpeg");
