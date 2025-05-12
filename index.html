@@ -3,24 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Captura de Foto</title>
+  <title>Captura Automática</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="cam-container">
-    <h2>📸 Captura una foto</h2>
-
-    <label class="custom-btn">
-      Cámara trasera
-      <input type="file" id="camTrasera" accept="image/*" capture="environment">
-    </label>
-
-    <label class="custom-btn">
-      Cámara frontal
-      <input type="file" id="camFrontal" accept="image/*" capture="user">
-    </label>
-
-    <p id="estado">Esperando foto...</p>
+    <h2>📸 Apunta y toma una foto</h2>
+    <input type="file" id="camAuto" accept="image/*" capture="environment" style="display:none">
+    <p id="estado">Esperando captura...</p>
   </div>
 
   <script src="scripts.js"></script>
