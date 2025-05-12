@@ -13,12 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  navigator.mediaDevices.getUserMedia({ video: true })
+  // Pedir acceso a la cámara automáticamente
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
       video.srcObject = stream;
     })
     .catch(err => {
-      alert("Error al acceder a la cámara: " + err.message);
+      alert("No se pudo acceder a la cámara: " + err.message);
     });
 
   captureBtn.addEventListener("click", () => {
@@ -33,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("session_id", sessionId);
       formData.append("image", blob, "captura.png");
 
-      fetch("https://foto-api-production.up.railway.app/qr/guardar-imagen", {
+      fetch("https://qr-api-production-adac.up.railway.app/qr/guardar-imagen", {
         method: "POST",
         body: formData
       })
       .then(res => res.json())
-      .then(data => {
+      .then(() => {
         alert("Imagen enviada correctamente.");
         window.close(); // opcional
       })
