@@ -25,29 +25,6 @@ body {
   max-width: 400px;
 }
 
-.custom-btn {
-  display: block;
-  background-color: #00c853;
-  color: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 20px 0;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.custom-btn input {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
 #estado {
   margin-top: 20px;
   font-size: 14px;
