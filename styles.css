@@ -1,9 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   background: #111;
   color: #fff;
@@ -12,8 +6,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  text-align: center;
   padding: 20px;
+  margin: 0;
 }
 
 .cam-container {
@@ -21,8 +15,22 @@ body {
   border-radius: 16px;
   padding: 30px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  text-align: center;
   width: 100%;
   max-width: 400px;
+}
+
+button#abrirCamara {
+  padding: 15px 20px;
+  background-color: #00c853;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  margin-top: 20px;
+  width: 100%;
 }
 
 #estado {
