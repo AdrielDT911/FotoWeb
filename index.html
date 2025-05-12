@@ -1,24 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Captura de Foto</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="camera-wrapper">
-    <video id="camera" autoplay playsinline></video>
+  <div class="camera-app">
+    <h2>Capturar Foto</h2>
 
-    <div class="ui-overlay">
-      <div class="focus-box"></div>
-      <button id="capture" aria-label="Capturar foto"></button>
-    </div>
+    <label for="cameraInput" class="custom-button">📷 Usar cámara trasera</label>
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" />
 
-    <canvas id="canvas" style="display: none;"></canvas>
     <p id="status"></p>
   </div>
 
-  <script src="scripts.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const qrId = params.get('qr_id');
+      const sessionId = params.get('session_id');
+      const input = document.getElementById("cameraInput");
+      const statusText = document.getElementById("status");
+
+      if (!qrId || !sessionId) {
+        alert("Faltan parámetros en la URL.");
+        return;
+      }
+
+      input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("imagen", file);
+        formData.append("qr_id", qrId);
+        formData.append("session_id", sessionId);
+
+        statusText.textContent = "⏳ Enviando imagen...";
+
+        fetch("https://foto-api-production.up.railway.app/qr/guardar-foto", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+          statusText.textContent = "✅ Foto enviada correctamente.";
+        })
+        .catch(err => {
+          console.error(err);
+          statusText.textContent = "❌ Error al enviar la imagen.";
+        });
+      });
+    });
+  </script>
 </body>
 </html>
