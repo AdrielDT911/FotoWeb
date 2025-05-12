@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Captura de Foto</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cámara</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="camera-wrapper">
+  <div class="camera-container">
     <video id="camera" autoplay playsinline></video>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" style="display: none;"></canvas>
 
-    <!-- Controles -->
     <div class="controls">
       <button id="capture" class="circle-btn"></button>
-      <button id="send" class="send-btn hidden">Enviar</button>
+      <button id="send" class="send-btn" disabled>Enviar</button>
     </div>
 
-    <p id="status"></p>
+    <div id="status"></div>
   </div>
 
   <script src="scripts.js"></script>
