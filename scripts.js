@@ -1,8 +1,8 @@
-// script.js
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.getElementById("video");
   const canvas = document.getElementById("canvas");
-  const captureBtn = document.getElementById("captureBtn");
+  const captureBtn = document.getElementById("capture");
+  const statusMsg = document.getElementById("status-msg");
 
   const params = new URLSearchParams(window.location.search);
   const qrId = params.get("qr_id");
@@ -13,37 +13,36 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Pedir acceso a la cámara automáticamente
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
       video.srcObject = stream;
     })
     .catch(err => {
-      alert("No se pudo acceder a la cámara: " + err.message);
+      alert("Permiso de cámara denegado o no disponible.");
+      console.error(err);
     });
 
   captureBtn.addEventListener("click", () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.getContext("2d").drawImage(video, 0, 0);
 
     canvas.toBlob(blob => {
       const formData = new FormData();
-      formData.append("qr_id", qrId);
-      formData.append("session_id", sessionId);
-      formData.append("image", blob, "captura.png");
+      formData.append("file", blob, "captura.png");
 
-      fetch("https://foto-api-production.up.railway.app/qr/guardar-imagen", {
+      fetch(`https://foto-api-production.up.railway.app/qr/guardar-imagen?qr_id=${qrId}&session_id=${sessionId}`, {
         method: "POST",
         body: formData
       })
-      .then(res => res.json())
-      .then(() => {
-        alert("Imagen enviada correctamente.");
-        window.close(); // opcional
-      })
-      .catch(err => alert("Error al enviar la imagen: " + err.message));
+        .then(res => res.json())
+        .then(data => {
+          statusMsg.textContent = "📤 Imagen enviada correctamente.";
+        })
+        .catch(err => {
+          statusMsg.textContent = "❌ Error al enviar imagen.";
+          console.error(err);
+        });
     }, "image/png");
   });
 });
