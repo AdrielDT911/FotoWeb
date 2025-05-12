@@ -1,63 +1,44 @@
-* {
+/* styles.css */
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0f0f0f;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-}
-
-.container {
-  text-align: center;
-  width: 100%;
-  max-width: 480px;
-  padding: 10px;
-}
-
-video, #preview {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-  margin-bottom: 10px;
-}
-
-#preview {
-  display: none;
-}
-
-canvas {
-  display: none;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-}
-
-button {
-  flex: 1;
-  padding: 12px 10px;
-  font-size: 16px;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 8px;
   color: white;
+}
+
+.camera-container {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  border-bottom: 2px solid #444;
+}
+
+button#captureBtn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, #00c853, #64dd17);
+  color: white;
+  border: none;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  border-radius: 0 0 20px 20px;
+  transition: background 0.3s ease;
 }
 
-button:hover {
-  background-color: #006fdc;
-}
-
-#send-btn, #cancel-btn {
-  display: none;
+button#captureBtn:hover {
+  background: linear-gradient(45deg, #64dd17, #00c853);
 }
