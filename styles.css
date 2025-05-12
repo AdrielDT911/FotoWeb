@@ -4,81 +4,69 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #111;
-  color: #fff;
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
   font-family: 'Segoe UI', sans-serif;
-  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
-.camera-app {
+.camera-wrapper {
   position: relative;
   width: 100%;
-  max-width: 420px;
-  height: 100%;
-  max-height: 750px;
-  background: #000;
-  border-radius: 30px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  max-width: 400px;
+  height: 700px;
+  background-color: #000;
   overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
 
-video {
+video#camera {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-button.capture-btn {
+.controls {
   position: absolute;
   bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 80px;
-  background-color: #fff;
-  color: #000;
-  font-size: 28px;
-  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.capture-button {
+  pointer-events: all;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
+  border: 6px solid white;
+  background-color: rgba(255,255,255,0.1);
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
-button.capture-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 1);
-}
-
-button.capture-btn:active {
-  transform: scale(0.95);
+.capture-button:active {
+  transform: scale(0.9);
 }
 
 #status {
   position: absolute;
-  bottom: 120px;
+  bottom: 100px;
   width: 100%;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   color: lime;
   font-weight: bold;
-  z-index: 10;
-  visibility: hidden;
-}
-
-@media (max-width: 600px) {
-  .camera-app {
-    max-width: 100%;
-    max-height: 90%;
-  }
-
-  button.capture-btn {
-    width: 70px;
-    height: 70px;
-  }
+  text-shadow: 0 0 5px #000;
 }
