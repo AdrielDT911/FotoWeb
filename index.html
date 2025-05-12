@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Captura de Foto</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="camera-app">
+  <div class="camera-wrapper">
     <video id="camera" autoplay playsinline></video>
-    <button id="capture" class="capture-btn">📸</button>
+
+    <div class="controls">
+      <button id="capture" class="capture-button"></button>
+    </div>
+
     <canvas id="canvas" style="display: none;"></canvas>
-    <div id="status" class="status"></div>
+    <p id="status"></p>
   </div>
+
   <script src="scripts.js"></script>
 </body>
 </html>
