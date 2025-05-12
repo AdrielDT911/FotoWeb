@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const video = document.getElementById("camera");
   const canvas = document.getElementById("canvas");
   const captureBtn = document.getElementById("capture");
+  const sendBtn = document.getElementById("send");
   const statusText = document.getElementById("status");
+
+  let imageBlob = null;
 
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
@@ -24,29 +27,38 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         canvas.toBlob(blob => {
-          const formData = new FormData();
-          formData.append("imagen", blob, "foto.jpg");
-          formData.append("qr_id", qrId);
-          formData.append("session_id", sessionId);
-
-          fetch("https://foto-api-production.up.railway.app/qr/guardar-foto", {
-            method: "POST",
-            body: formData
-          })
-          .then(res => res.json())
-          .then(data => {
-            statusText.textContent = "✅ Foto enviada correctamente.";
-            stream.getTracks().forEach(track => track.stop());
-            captureBtn.disabled = true;
-          })
-          .catch(err => {
-            statusText.textContent = "❌ Error al enviar la foto.";
-            console.error(err);
-          });
+          imageBlob = blob;
+          sendBtn.classList.remove("hidden");
+          statusText.textContent = "📸 Foto capturada. Listo para enviar.";
         }, "image/jpeg");
+      });
+
+      sendBtn.addEventListener("click", () => {
+        if (!imageBlob) return;
+
+        const formData = new FormData();
+        formData.append("imagen", imageBlob, "foto.jpg");
+        formData.append("qr_id", qrId);
+        formData.append("session_id", sessionId);
+
+        fetch("https://foto-api-production.up.railway.app/qr/guardar-foto", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+          statusText.textContent = "✅ Foto enviada correctamente.";
+          sendBtn.disabled = true;
+          captureBtn.disabled = true;
+          video.srcObject.getTracks().forEach(track => track.stop());
+        })
+        .catch(err => {
+          statusText.textContent = "❌ Error al enviar la foto.";
+          console.error(err);
+        });
       });
     })
     .catch(err => {
-      alert("Error accediendo a la cámara: " + err.message);
+      alert("Permiso de cámara denegado o error: " + err.message);
     });
 });
