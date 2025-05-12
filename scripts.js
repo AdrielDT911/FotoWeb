@@ -3,21 +3,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const qrId = params.get('qr_id');
   const sessionId = params.get('session_id');
 
-  if (!qrId || !sessionId) {
-    alert("Parámetros inválidos en la URL.");
-    return;
-  }
-
   const video = document.getElementById("camera");
   const canvas = document.getElementById("canvas");
   const captureBtn = document.getElementById("capture");
   const statusText = document.getElementById("status");
+
+  if (!qrId || !sessionId) {
+    alert("Parámetros inválidos en la URL.");
+    return;
+  }
 
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
       video.srcObject = stream;
 
       captureBtn.addEventListener("click", () => {
+        // Flash blanco animación
+        document.body.style.backgroundColor = '#fff';
+        setTimeout(() => document.body.style.backgroundColor = '#000', 80);
+
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         const ctx = canvas.getContext("2d");
@@ -47,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     })
     .catch(err => {
-      alert("Error accediendo a la cámara: " + err.message);
+      alert("No se pudo acceder a la cámara. Permiso denegado o error.");
+      console.error(err);
     });
 });
