@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Captura de Foto</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="camera-app">
+  <div class="camera-wrapper">
     <video id="camera" autoplay playsinline></video>
-    <button id="capture"> Tomar Foto</button>
-    <canvas id="canvas" style="display: none;"></canvas>
+    <canvas id="canvas"></canvas>
+
+    <!-- Controles -->
+    <div class="controls">
+      <button id="capture" class="circle-btn"></button>
+      <button id="send" class="send-btn hidden">Enviar</button>
+    </div>
+
     <p id="status"></p>
   </div>
+
   <script src="scripts.js"></script>
 </body>
 </html>
