@@ -8,15 +8,19 @@
 </head>
 <body>
   <div class="cam-container">
-    <h2>📸 Toma una foto</h2>
+    <h2>📸 Captura una foto</h2>
 
-    <!-- Botón visible que activa la cámara -->
-    <button id="abrirCamara">Abrir cámara</button>
+    <label class="custom-btn">
+      Cámara trasera
+      <input type="file" id="camTrasera" accept="image/*" capture="environment">
+    </label>
 
-    <!-- Input oculto que dispara la cámara trasera -->
-    <input type="file" id="inputCamara" accept="image/*" capture="environment" style="display:none">
+    <label class="custom-btn">
+      Cámara frontal
+      <input type="file" id="camFrontal" accept="image/*" capture="user">
+    </label>
 
-    <p id="estado">Esperando acción...</p>
+    <p id="estado">Esperando foto...</p>
   </div>
 
   <script src="scripts.js"></script>
