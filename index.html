@@ -1,25 +1,19 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Captura de Imagen</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="camera-container">
     <video id="video" autoplay playsinline></video>
-
-    <canvas id="canvas"></canvas>
-    <img id="preview" alt="Vista previa de imagen" />
-
-    <div class="buttons">
-      <button id="capture-btn">📸 Capturar</button>
-      <button id="send-btn">✅ Enviar Imagen</button>
-      <button id="cancel-btn">❌ Cancelar</button>
-    </div>
+    <button id="captureBtn">Capturar</button>
+    <canvas id="canvas" style="display: none;"></canvas>
   </div>
 
-  <script src="scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
