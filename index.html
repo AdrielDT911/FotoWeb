@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cámara - Captura de Imagen</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captura de Foto</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="camera-wrapper">
-    <video id="video" autoplay playsinline></video>
-    <button id="capture">📸</button>
-    <canvas id="canvas" style="display:none;"></canvas>
-    <p id="status-msg"></p>
+  <div class="camera-app">
+    <video id="camera" autoplay playsinline></video>
+    <button id="capture"> Tomar Foto</button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <p id="status"></p>
   </div>
-
   <script src="scripts.js"></script>
 </body>
 </html>
