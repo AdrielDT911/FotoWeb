@@ -9,35 +9,35 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const inputCamara = document.getElementById("inputCamara");
-  const abrirCamara = document.getElementById("abrirCamara");
+  function enviarFoto(archivo) {
+    const formData = new FormData();
+    formData.append("imagen", archivo);
+    formData.append("qr_id", qrId);
+    formData.append("session_id", sessionId);
 
-  abrirCamara.addEventListener("click", () => {
-    inputCamara.click(); // 🟢 Lanza la cámara trasera
-  });
+    fetch("https://foto-api-production.up.railway.app/qr/guardar-foto", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      estado.textContent = "✅ Foto enviada correctamente.";
+    })
+    .catch(err => {
+      estado.textContent = "❌ Error al enviar la foto.";
+      console.error(err);
+    });
+  }
 
-  inputCamara.addEventListener("change", () => {
-    if (inputCamara.files.length > 0) {
-      const archivo = inputCamara.files[0];
-      estado.textContent = "📤 Enviando foto...";
+  const camTrasera = document.getElementById("camTrasera");
+  const camFrontal = document.getElementById("camFrontal");
 
-      const formData = new FormData();
-      formData.append("imagen", archivo);
-      formData.append("qr_id", qrId);
-      formData.append("session_id", sessionId);
-
-      fetch("https://foto-api-production.up.railway.app/qr/guardar-foto", {
-        method: "POST",
-        body: formData
-      })
-      .then(res => res.json())
-      .then(data => {
-        estado.textContent = "✅ Foto enviada correctamente.";
-      })
-      .catch(err => {
-        estado.textContent = "❌ Error al enviar la foto.";
-        console.error(err);
-      });
-    }
+  [camTrasera, camFrontal].forEach(input => {
+    input.addEventListener("change", () => {
+      if (input.files.length > 0) {
+        estado.textContent = "Enviando foto...";
+        enviarFoto(input.files[0]);
+      }
+    });
   });
 });
