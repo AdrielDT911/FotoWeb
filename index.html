@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Cámara de Captura</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Captura de Documento</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Captura de Imágenes</h1>
-    <input type="file" id="fotoInput" accept="image/*" capture="environment" multiple>
-    <div id="preview"></div>
-    <button id="enviarBtn">Enviar Fotos</button>
+    <h1>Subir Documento</h1>
+    <p>Por favor, capture una foto clara del documento utilizando la cámara trasera.</p>
+
+    <label class="upload-box" for="inputCamara">
+      <span class="upload-icon">📷</span>
+      <span class="upload-text">Tocar para capturar con la cámara</span>
+    </label>
+
+    <input 
+      type="file" 
+      id="inputCamara" 
+      accept="image/*" 
+      capture="environment" 
+      style="display: none;"
+    />
+
+    <p id="estado" class="status-msg">Esperando captura...</p>
   </div>
-  <script src="script.js"></script>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
