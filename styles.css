@@ -1,55 +1,79 @@
+/* Reset básico */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+/* Tipografía y cuerpo */
 body {
-  background: #111;
-  color: #fff;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: #f4f6f8;
+  color: #2e2e2e;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  text-align: center;
   padding: 20px;
 }
 
-.cam-container {
-  background: #1e1e1e;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  width: 100%;
+/* Contenedor principal */
+.container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 30px 25px;
   max-width: 400px;
+  width: 100%;
+  text-align: center;
 }
 
-.custom-btn {
-  display: block;
-  background-color: #00c853;
-  color: white;
-  padding: 15px;
+/* Título */
+.container h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #1e1e1e;
+}
+
+/* Texto secundario */
+.container p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* Casilla de carga personalizada */
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f1f5;
+  border: 2px dashed #a0a4aa;
   border-radius: 10px;
-  margin: 20px 0;
+  padding: 40px 20px;
   cursor: pointer;
-  font-weight: bold;
+  transition: border-color 0.3s;
+}
+
+.upload-box:hover {
+  border-color: #007bff;
+}
+
+.upload-icon {
+  font-size: 36px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.upload-text {
   font-size: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  position: relative;
-  overflow: hidden;
+  color: #333;
 }
 
-.custom-btn input {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-#estado {
+/* Mensaje de estado */
+.status-msg {
   margin-top: 20px;
   font-size: 14px;
-  color: #90ee90;
+  color: #444;
 }
